@@ -28,7 +28,7 @@ app.post('/', function(request, response) {
   response.end('thanks')
 })
 
-port = 80
+const port = process.env.PORT || 3000;
 app.listen(port)
 console.log(`Listening at http://localhost:${port}`)
 
