@@ -35,7 +35,7 @@ app.post('/', function(request, response) {
   console.dir(request.body)
 
   const text = 'INSERT INTO lectures(temperature, humidity,time) VALUES($1, $2, $3) RETURNING *'
-  const values = [request.body.temperature, request.body.humidity,Date.now()]
+  const values = [request.body.temperature, request.body.humidity,to_timestamp(Date.now())]
   // callback
   client.query(text, values, (err, res) => {
     if (err) {
