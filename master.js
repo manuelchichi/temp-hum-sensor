@@ -28,7 +28,7 @@ app.post('/', function(request, response) {
   response.end('thanks')
 })
 
-port = 3000
+port = 80
 app.listen(port)
 console.log(`Listening at http://localhost:${port}`)
 
