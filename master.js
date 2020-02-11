@@ -32,9 +32,8 @@ app.get('/', function(request, response) {
 })
 
 app.get('/lectures',function(request,response) {
-  const text = 'SELECT * FROM lectures BETWEEN $1 and $2 ORDER BY time ASC'
-  const values = [request.body.date1,request.body.date2]
-  // callback
+  const text = 'SELECT * FROM lectures BETWEEN ? and ? ORDER BY time ASC'
+  const values = [request.query.date1,request.query.date2]
   client.query(text, values, (err, res) => {
     if (err) {
       console.log(err.stack)
@@ -48,7 +47,6 @@ app.get('/lectures',function(request,response) {
 app.post('/', function(request, response) {
   const text = 'INSERT INTO lectures(temperature, humidity,time) VALUES($1, $2, $3) RETURNING *'
   const values = [request.body.temperature, request.body.humidity,new Date()]
-  // callback
   client.query(text, values, (err, res) => {
     if (err) {
       console.log(err.stack)
