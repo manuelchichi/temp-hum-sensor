@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function(request, response) {
-  console.log('GET /')
+
   var html = `
     <html>
         <body>
@@ -26,14 +26,26 @@ app.get('/', function(request, response) {
             </form>
         </body>
     </html>`
+
   response.writeHead(200, {'Content-Type': 'text/html'})
   response.end(html)
 })
 
-app.post('/', function(request, response) {
-  console.log('POST /')
-  console.dir(request.body)
+app.get('/lectures',function(request,response) {
+  const text = 'SELECT * FROM lectures BETWEEN $1 and $2 ORDER BY time ASC'
+  const values = [request.body.date1,request.body.date2]
+  // callback
+  client.query(text, values, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      console.log(res.rows[0])
+    }
+  })
 
+})
+
+app.post('/', function(request, response) {
   const text = 'INSERT INTO lectures(temperature, humidity,time) VALUES($1, $2, $3) RETURNING *'
   const values = [request.body.temperature, request.body.humidity,new Date()]
   // callback
@@ -46,7 +58,7 @@ app.post('/', function(request, response) {
   })
 
   response.writeHead(200, {'Content-Type': 'text/html'})
-  response.end('thanks')
+  response.end('Successful lecture.')
 })
 
 const port = process.env.PORT || 3000;
