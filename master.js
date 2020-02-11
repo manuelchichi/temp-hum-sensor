@@ -32,8 +32,14 @@ app.get('/', function(request, response) {
 })
 
 app.get('/lectures',function(request,response) {
-  const text = 'SELECT * FROM lectures BETWEEN ? and ? ORDER BY time ASC'
-  const values = [request.query.date1,request.query.date2]
+  const text = 'SELECT * FROM lectures BETWEEN $1 AND $2 ORDER BY time ASC'
+  console.log(date1)
+  date1 = new Date(Date.parse(request.query.date1))
+  date2 = new Date(Date.parse(request.query.date2));
+  console.log(date1)
+  const values = [date1,date2]
+
+
   client.query(text, values, (err, res) => {
     if (err) {
       console.log(err.stack)
