@@ -64,7 +64,7 @@
 		$.getJSON(query, function(data) {
 			$.each(data, function(i, item) {
 		        	$('<tr>').html(
-		        	"<td>" + data[i].temperature + "</td><td>" + data[i].humidity + "</td><td>" + data[i].date.toString() + "</td>" + "</tr>").appendTo('#lectureTable tbody');
+		        	"<td>" + data[i].temperature + "</td><td>" + data[i].humidity + "</td><td>" + data[i].time + "</td>" + "</tr>").appendTo('#lectureTable tbody');
 			});
 
 		})
