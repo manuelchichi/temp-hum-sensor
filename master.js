@@ -34,20 +34,19 @@ app.get('/', function(request, response) {
 
 app.get('/lectures',function(request,response) {
   const text = 'SELECT * FROM lectures'
+  var queryResult = []
   startDate = new Date(Date.parse(request.query.date1))
   endDate = new Date(Date.parse(request.query.date2));
-  queryResult = []
+
 
   client.query(text, (err, res) => {
     if (err) {
       console.log(err.stack)
     } else {
-      queryResult = res
-      console.log(res)
+      queryResult = res.rows
+      console.log(res.rows)
     }
   })
-
-  console.log(queryResult)
 
   var resultProductData = queryResult.filter(function (a) {
     var hitDates = a.time || {};
