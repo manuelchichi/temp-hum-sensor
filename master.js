@@ -24,21 +24,14 @@ app.get('/lectures',function(request,response) {
     if (err) {
       console.log(err.stack)
     } else {
-      var resultLectures = res.rows.filter(function (a) {
-        var hitDates = a.time || {};
-        hitDates = Object.keys(hitDates);
-        hitDateMatchExists = hitDates.some(function(dateStr) {
-        var date = new Date(dateStr);
-          return date >= startDate && date <= endDate
-        });
-        return hitDateMatchExists;
+      var resultLectures = res.rows.filter(function (lecture) {
+        var date = new Date(lecture.time);
+        return (date >= startDate && date <= endDate);
       });
       response.writeHead(200, { 'Content-Type': 'application/json'});
       response.end(JSON.stringify(resultLectures));
     }
-  })
-
-  
+  }) 
 })
 
 app.post('/', function(request, response) {
