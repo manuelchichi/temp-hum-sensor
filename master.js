@@ -49,7 +49,7 @@ app.get('/lectures',function(request,response) {
 
   console.log(queryResult)
 
-  var resultProductData = queryResult.rows[0].filter(function (a) {
+  var resultProductData = queryResult.filter(function (a) {
     var hitDates = a.time || {};
       hitDates = Object.keys(hitDates);
       hitDateMatchExists = hitDates.some(function(dateStr) {
