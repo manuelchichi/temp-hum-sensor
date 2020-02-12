@@ -27,24 +27,25 @@ app.get('/lectures',function(request,response) {
       console.log(err.stack)
     } else {
       queryResult = JSON.stringify(res.rows)
+	console.log(queryResult)
+
+	  var resultProductData = queryResult.filter(function (a) {
+	    var hitDates = a.time || {};
+	      hitDates = Object.keys(hitDates);
+	      hitDateMatchExists = hitDates.some(function(dateStr) {
+		var date = new Date(dateStr);
+		  return date >= startDate && date <= endDate
+	       });
+	     return hitDateMatchExists;
+	   });
+
+	  response.writeHead(200, { 'Content-Type': 'application/json'});
+	  response.end(queryResult);
+
     }
   })
 
-  console.log(queryResult)
-
-  var resultProductData = queryResult.filter(function (a) {
-    var hitDates = a.time || {};
-      hitDates = Object.keys(hitDates);
-      hitDateMatchExists = hitDates.some(function(dateStr) {
-        var date = new Date(dateStr);
-          return date >= startDate && date <= endDate
-       });
-     return hitDateMatchExists;
-   });
-
-  response.writeHead(200, { 'Content-Type': 'application/json'});
-  response.end(queryResult);
-
+  
 
 })
 
