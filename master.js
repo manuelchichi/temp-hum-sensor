@@ -2,6 +2,7 @@ var express = require('express')
 var fs = require('fs')
 var app = express()
 var bodyParser = require('body-parser');
+var path = require('path')
 
 const { Client } = require('pg');
 
@@ -14,7 +15,8 @@ client.connect();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.staticProvider(__dirname + '/public'));
+
+app.use("/public", express.static(path.resolve(__dirname + '/public')));
 
 app.get('/',function(request,response) {
   res.sendFile(__dirname + '/public/index.html');
@@ -22,7 +24,7 @@ app.get('/',function(request,response) {
 
 app.get('/lectures',function(request,response) {
   const text = 'SELECT * FROM lectures'
-  startDate = new Date(Date.parse(request.query.date1))
+  startDate = new Date(Date.parse(request.query.date1));
   endDate = new Date(Date.parse(request.query.date2));
 
   client.query(text, (err, res) => {
