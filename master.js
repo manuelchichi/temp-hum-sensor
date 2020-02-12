@@ -20,8 +20,9 @@ app.get('/', function(request, response) {
   var html = `
     <html>
         <body>
-            <form method="post" action="https://temp-hum-sensor.herokuapp.com">Name: 
-                <input type="text" name="name" />
+            <form method="post" action="https://temp-hum-sensor.herokuapp.com/lectures"> 
+                Start Date:<input type="date" name="date1" />
+                End Date:<input type="date" name="date2" />
                 <input type="submit" value="Submit" />
             </form>
         </body>
@@ -32,19 +33,35 @@ app.get('/', function(request, response) {
 })
 
 app.get('/lectures',function(request,response) {
-  const text = 'SELECT * FROM lectures BETWEEN $1::timestamp AND $2::timestamp ORDER BY time ASC'
-  date1 = new Date(Date.parse(request.query.date1))
-  date2 = new Date(Date.parse(request.query.date2));
-  const values = [date1,date2]
+  const text = 'SELECT * FROM lectures'
+  startDate = new Date(Date.parse(request.query.date1))
+  endDate = new Date(Date.parse(request.query.date2));
 
-
-  client.query(text, values, (err, res) => {
+  client.query(text, (err, res) => {
     if (err) {
       console.log(err.stack)
     } else {
       console.log(res.rows[0])
     }
   })
+
+  console.log(res.rows)
+  console.log(res.rows[0])
+
+  var resultProductData = res.rows[0].filter(function (a) {
+    var hitDates = a.time || {};
+      hitDates = Object.keys(hitDates);
+      hitDateMatchExists = hitDates.some(function(dateStr) {
+        var date = new Date(dateStr);
+          return date >= startDate && date <= endDate
+       });
+     return hitDateMatchExists;
+   });
+
+  console.log(resultProductData);
+
+  response.writeHead(200, {'Content-Type': 'application/json'})
+  response.end(resultProductData)
 
 })
 
