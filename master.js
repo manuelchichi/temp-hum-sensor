@@ -14,6 +14,11 @@ client.connect();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.staticProvider(__dirname + '/public'));
+
+app.get('/',function(request,response) {
+  res.sendFile(__dirname + '/public/index.html');
+})
 
 app.get('/lectures',function(request,response) {
   const text = 'SELECT * FROM lectures'
