@@ -41,14 +41,14 @@ app.get('/lectures',function(request,response) {
     if (err) {
       console.log(err.stack)
     } else {
+      result = res.rows[0]
       console.log(res.rows[0])
     }
   })
 
-  console.log(res.rows)
-  console.log(res.rows[0])
+  console.log(result)
 
-  var resultProductData = res.rows[0].filter(function (a) {
+  var resultProductData = result.rows[0].filter(function (a) {
     var hitDates = a.time || {};
       hitDates = Object.keys(hitDates);
       hitDateMatchExists = hitDates.some(function(dateStr) {
