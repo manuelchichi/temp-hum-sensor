@@ -30,6 +30,8 @@ app.get('/lectures',function(request,response) {
     }
   })
 
+  console.log(queryResult)
+
   var resultProductData = queryResult.filter(function (a) {
     var hitDates = a.time || {};
       hitDates = Object.keys(hitDates);
