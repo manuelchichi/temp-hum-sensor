@@ -17,24 +17,28 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/lectures',function(request,response) {
   const text = 'SELECT * FROM lectures'
-  var queryResult = []
   startDate = new Date(Date.parse(request.query.date1))
   endDate = new Date(Date.parse(request.query.date2));
-
 
   client.query(text, (err, res) => {
     if (err) {
       console.log(err.stack)
     } else {
-      queryResult = JSON.stringify(res.rows)
-      console.log(queryResult)
+      var resultLectures = res.rows.filter(function (a) {
+        var hitDates = a.time || {};
+        hitDates = Object.keys(hitDates);
+        hitDateMatchExists = hitDates.some(function(dateStr) {
+        var date = new Date(dateStr);
+          return date >= startDate && date <= endDate
+        });
+        return hitDateMatchExists;
+      });
       response.writeHead(200, { 'Content-Type': 'application/json'});
-      response.end(queryResult);
+      response.end(JSON.stringify(resultLectures));
     }
   })
 
   
-
 })
 
 app.post('/', function(request, response) {
