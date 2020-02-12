@@ -26,8 +26,7 @@ app.get('/lectures',function(request,response) {
     if (err) {
       console.log(err.stack)
     } else {
-      queryResult = res.rows[0]
-      //console.log(res.rows)
+      queryResult = JSON.stringify(res.rows)
     }
   })
 
@@ -41,9 +40,9 @@ app.get('/lectures',function(request,response) {
      return hitDateMatchExists;
    });
 
-  console.log(resultProductData);
- 
-  response.json(queryResult)
+  response.writeHead(200, { 'Content-Type': 'application/json'});
+  response.end(queryResult);
+
 
 })
 
