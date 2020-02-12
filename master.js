@@ -42,8 +42,8 @@ app.get('/lectures',function(request,response) {
     if (err) {
       console.log(err.stack)
     } else {
-      queryResult = res.rows[0]
-      console.log(res.rows[0])
+      queryResult = res
+      console.log(res)
     }
   })
 
