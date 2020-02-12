@@ -15,23 +15,6 @@ client.connect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', function(request, response) {
-
-  var html = `
-    <html>
-        <body>
-            <form method="post" action="https://temp-hum-sensor.herokuapp.com/lectures"> 
-                Start Date:<input type="date" name="date1" />
-                End Date:<input type="date" name="date2" />
-                <input type="submit" value="Submit" />
-            </form>
-        </body>
-    </html>`
-
-  response.writeHead(200, {'Content-Type': 'text/html'})
-  response.end(html)
-})
-
 app.get('/lectures',function(request,response) {
   const text = 'SELECT * FROM lectures'
   var queryResult = []
@@ -60,8 +43,7 @@ app.get('/lectures',function(request,response) {
 
   console.log(resultProductData);
 
-  response.writeHead(200, {'Content-Type': 'application/json'})
-  response.end(resultProductData)
+  response.json(resultProductData)
 
 })
 
