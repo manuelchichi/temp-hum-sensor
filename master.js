@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/public", express.static(path.resolve(__dirname + '/public')));
 
 app.get('/',function(request,response) {
-  res.sendFile(__dirname + '/public/index.html');
+  response.sendFile(__dirname + '/public/index.html');
 })
 
 app.get('/lectures',function(request,response) {
