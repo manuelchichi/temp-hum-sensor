@@ -36,19 +36,20 @@ app.get('/lectures',function(request,response) {
   const text = 'SELECT * FROM lectures'
   startDate = new Date(Date.parse(request.query.date1))
   endDate = new Date(Date.parse(request.query.date2));
+  queryResult = []
 
   client.query(text, (err, res) => {
     if (err) {
       console.log(err.stack)
     } else {
-      result = res.rows[0]
+      queryResult = res.rows[0]
       console.log(res.rows[0])
     }
   })
 
-  console.log(result)
+  console.log(queryResult)
 
-  var resultProductData = result.rows[0].filter(function (a) {
+  var resultProductData = queryResult.rows[0].filter(function (a) {
     var hitDates = a.time || {};
       hitDates = Object.keys(hitDates);
       hitDateMatchExists = hitDates.some(function(dateStr) {
