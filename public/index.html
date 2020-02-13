@@ -17,12 +17,8 @@
 		<h2>Query lectures</h2>
 		<div class="row">
 			<div class="form-group col">
-				<label >Start date</label>
-				<input type="date" name="bday" max="3000-12-31"min="1000-01-01" class="form-control" id='date1'>
-			</div>
-			<div class="form-group col">
-				<label >End Date</label>
-				<input type="date" name="bday" min="1000-01-01"max="3000-12-31" class="form-control" id='date2'>
+				<label >Date</label>
+				<input type="date" name="bday" max="3000-12-31"min="1000-01-01" class="form-control" id='date'>
 			</div>
 			<div class="col">
 				<label >Search</label>
@@ -45,7 +41,7 @@
 		      <th scope="col">Date</th>
 		    </tr>
 		  </thead>
-		  <tbody>
+		  <tbody id='lectureTableBody'>
 		  </tbody>
 		</table>
 	</div>
@@ -56,11 +52,13 @@
 
 	<script type="text/javascript">
 	$('#searchButton').click(function() {
-		//$("#lectureTable").empty();
-		var dateStart = new Date($('#date1').val()).toISOString().slice(0,10);
-		var dateEnd = new Date($('#date2').val()).toISOString().slice(0,10);
+		$("#lectureTableBody").empty();
 
-		var query = "https://temp-hum-sensor.herokuapp.com/lectures?date1="+dateStart+"&date2="+dateEnd;
+		var date = new Date($('#date').val()).toISOString().slice(0,10);
+		var tomorrow = date;
+		tomorrow.setDate(tomorrow.getDate() + 1);
+
+		var query = "https://temp-hum-sensor.herokuapp.com/lectures?date1="+date+"&date2="+tomorrow;
 		$.getJSON(query, function(data) {
 			$.each(data, function(i, item) {
 		        	$('<tr>').html(
