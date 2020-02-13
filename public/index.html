@@ -55,8 +55,10 @@
 		$("#lectureTableBody").empty();
 
 		var date = new Date($('#date').val()).toISOString().slice(0,10);
-		var tomorrow = date;
+		var tomorrow = new Date($('#date').val());
 		tomorrow.setDate(tomorrow.getDate() + 1);
+		tomorrow = tomorrow.toISOString().slice(0,10);
+
 
 		var query = "https://temp-hum-sensor.herokuapp.com/lectures?date1="+date+"&date2="+tomorrow;
 		$.getJSON(query, function(data) {
