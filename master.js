@@ -23,7 +23,7 @@ app.get('/',function(request,response) {
 })
 
 app.get('/lectures',function(request,response) {
-  const text = 'SELECT * FROM lectures'
+  const text = 'SELECT * FROM lectures ORDER BY time DESC'
   startDate = new Date(Date.parse(request.query.date1));
   endDate = new Date(Date.parse(request.query.date2));
 
@@ -37,6 +37,18 @@ app.get('/lectures',function(request,response) {
       });
       response.writeHead(200, { 'Content-Type': 'application/json'});
       response.end(JSON.stringify(resultLectures));
+    }
+  }) 
+})
+
+app.get('/lastlecture',function(request,response) {
+  const text = 'SELECT * FROM lectures ORDER BY time DESC LIMIT 1'
+  client.query(text, (err, res) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      response.writeHead(200, { 'Content-Type': 'application/json'});
+      response.end(JSON.stringify(res.rows[0]));
     }
   }) 
 })

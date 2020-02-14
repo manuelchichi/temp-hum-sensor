@@ -2,18 +2,38 @@
 <html lang="en">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 <title>Temperature and Humidty Sensor</title>
-  </head>
-  <body>
+</head>
+<body>
 	<div class="container">
+		<h2>Last Lecture</h2>
+		<div>
+			<p>
+				<i class="fa fa-thermometer-half"></i> 
+				<span class="dht-labels">Temperature:</span> 
+				<span id="temperature">%TEMPERATURE%</span>
+				<sup class="units">°C</sup>
+			</p>
+			<p>
+				<i class="fa fa-tint"></i> 
+				<span class="dht-labels">Humidity:</span>
+				<span id="humidity">%HUMIDITY%</span>
+				<sup class="units">%</sup>
+			</p>
+			<p>
+				<i class="fa fa-calendar"></i> 
+				<span class="dht-labels">Date:</span>
+				<span id="date">%DATE%</span>
+			</p>
+		<div>
+	</div>
+	  
+	 <div class="container">
 		<h2>Query lectures</h2>
 		<div class="row">
 			<div class="form-group col">
@@ -51,24 +71,36 @@
 
 
 	<script type="text/javascript">
-	$('#searchButton').click(function() {
-		$("#lectureTableBody").empty();
+		$('#searchButton').click(function() {
+			$("#lectureTableBody").empty();
 
-		var date = new Date($('#date').val()).toISOString().slice(0,10);
-		var tomorrow = new Date($('#date').val());
-		tomorrow.setDate(tomorrow.getDate() + 1);
-		tomorrow = tomorrow.toISOString().slice(0,10);
+			var date = new Date($('#date').val()).toISOString().slice(0,10);
+			var tomorrow = new Date($('#date').val());
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			tomorrow = tomorrow.toISOString().slice(0,10);
 
 
-		var query = "https://temp-hum-sensor.herokuapp.com/lectures?date1="+date+"&date2="+tomorrow;
-		$.getJSON(query, function(data) {
-			$.each(data, function(i, item) {
-		        	$('<tr>').html(
-		        	"<td>" + data[i].temperature + "</td><td>" + data[i].humidity + "</td><td>" + data[i].time + "</td>" + "</tr>").appendTo('#lectureTable tbody');
-			});
+			var query = "https://temp-hum-sensor.herokuapp.com/lectures?date1="+date+"&date2="+tomorrow;
+			$.getJSON(query, function(data) {
+				$.each(data, function(i, item) {
+					$('<tr>').html(
+					"<td>" + data[i].temperature + "</td><td>" + data[i].humidity + "</td><td>" + data[i].time + "</td>" + "</tr>").appendTo('#lectureTable tbody');
+				});
+			})
+		});
+	</script>
 
-		})
-	});
+	
+	<script type="text/javascript">
+		$( document ).ready(function() {	
+			var query = "https://temp-hum-sensor.herokuapp.com/lastlecture;
+			$.getJSON(query, function(data) {
+				document.getElementById("temperature").innerHTML = data[0].temperature;
+				document.getElementById("humidity").innerHTML = data[0].humidity;
+				document.getElementById("date").innerHTML = data[0].time;
+					
+			})
+		});
 	</script>
   </body>
 </html>
