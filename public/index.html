@@ -80,7 +80,7 @@
 			$.getJSON(query, function(data) {
 				$.each(data, function(i, item) {
 					$('<tr>').html(
-					"<td>" + data[i].temperature + "</td><td>" + data[i].humidity + "</td><td>" + data[i].time + "</td>" + "</tr>").appendTo('#lectureTable tbody');
+					"<td>" + data[i].temperature + "</td><td>" + data[i].humidity + "</td><td>" + data[i].time.replace(' ', 'T').slice(0,16) + "</td>" + "</tr>").appendTo('#lectureTable tbody');
 				});
 			})
 		});
@@ -93,7 +93,7 @@
 			$.getJSON(query, function(data) {
 				$('#temperatureLast').text(data.temperature);
 				$('#humidityLast').text(data.humidity);
-				$('#dateLast').text(data.time);
+				$('#dateLast').text(data.time.replace(' ', 'T').slice(0,16));
 					
 			})
 		});
