@@ -93,7 +93,7 @@
 	
 	<script type="text/javascript">
 		$( document ).ready(function() {	
-			var query = "https://temp-hum-sensor.herokuapp.com/lastlecture;
+			var query = "https://temp-hum-sensor.herokuapp.com/lastlecture";
 			$.getJSON(query, function(data) {
 				document.getElementById("temperature").innerHTML = data[0].temperature;
 				document.getElementById("humidity").innerHTML = data[0].humidity;
