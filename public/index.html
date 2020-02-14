@@ -12,24 +12,24 @@
 <body>
 	<div class="container">
 		<h2>Last Lecture</h2>
-		<div>
-			<p>
+		<div class="row">
+			<div class="col">
 				<i class="fa fa-thermometer-half"></i> 
 				<span class="dht-labels">Temperature:</span> 
 				<span id="temperatureLast">%TEMPERATURE%</span>
 				<sup class="units">°C</sup>
-			</p>
-			<p>
+			</div>
+			<div class="col">
 				<i class="fa fa-tint"></i> 
 				<span class="dht-labels">Humidity:</span>
 				<span id="humidityLast">%HUMIDITY%</span>
 				<sup class="units">%</sup>
-			</p>
-			<p>
+			</div>
+			<div class="col">
 				<i class="fa fa-calendar"></i> 
 				<span class="dht-labels">Date:</span>
 				<span id="dateLast">%DATE%</span>
-			</p>
+			</div>
 		<div>
 	</div>
 	  
@@ -56,9 +56,9 @@
 		<table class="table" id="lectureTable">
 		  <thead>
 		    <tr>
-		      <th scope="col">Temperature</th>
-		      <th scope="col">Humidity</th>
-		      <th scope="col">Date</th>
+		      <th style="width: 30%">Temperature</th>
+		      <th style="width: 30%">Humidity</th>
+		      <th style="width: 40%">Date</th>
 		    </tr>
 		  </thead>
 		  <tbody id='lectureTableBody'>
