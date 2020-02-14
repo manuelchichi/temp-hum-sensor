@@ -16,19 +16,19 @@
 			<p>
 				<i class="fa fa-thermometer-half"></i> 
 				<span class="dht-labels">Temperature:</span> 
-				<span id="temperature">%TEMPERATURE%</span>
+				<span id="temperatureLast">%TEMPERATURE%</span>
 				<sup class="units">°C</sup>
 			</p>
 			<p>
 				<i class="fa fa-tint"></i> 
 				<span class="dht-labels">Humidity:</span>
-				<span id="humidity">%HUMIDITY%</span>
+				<span id="humidityLast">%HUMIDITY%</span>
 				<sup class="units">%</sup>
 			</p>
 			<p>
 				<i class="fa fa-calendar"></i> 
 				<span class="dht-labels">Date:</span>
-				<span id="date">%DATE%</span>
+				<span id="dateLast">%DATE%</span>
 			</p>
 		<div>
 	</div>
@@ -79,10 +79,6 @@
 			tomorrow.setDate(tomorrow.getDate() + 1);
 			tomorrow = tomorrow.toISOString().slice(0,10);
 
-			console.log(date);
-			console.log(tomorrow);
-
-
 			var query = "https://temp-hum-sensor.herokuapp.com/lectures?date1="+date+"&date2="+tomorrow;
 			$.getJSON(query, function(data) {
 				$.each(data, function(i, item) {
@@ -99,9 +95,9 @@
 			var query = "https://temp-hum-sensor.herokuapp.com/lastlecture";
 			$.getJSON(query, function(data) {
 				console.log(data);
-				document.getElementById("temperature").innerHTML = data[1].temperature;
-				document.getElementById("humidity").innerHTML = data[1].humidity;
-				document.getElementById("date").innerHTML = data[1].time;
+				document.getElementById("temperaturelast").innerHTML = data.temperature;
+				document.getElementById("humiditylast").innerHTML = data.humidity;
+				document.getElementById("datelast").innerHTML = data.time;
 					
 			})
 		});
