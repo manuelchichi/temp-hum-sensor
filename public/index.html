@@ -94,9 +94,9 @@
 		$( document ).ready(function() {	
 			var query = "https://temp-hum-sensor.herokuapp.com/lastlecture";
 			$.getJSON(query, function(data) {
-				$('#temperaturelast').text(data.temperature);
-				$('#humiditylast').text(data.humidity);
-				$('#datelast').text(data.time);
+				$('#temperatureLast').text(data.temperature);
+				$('#humidityLast').text(data.humidity);
+				$('#dateLast').text(data.time);
 					
 			})
 		});
