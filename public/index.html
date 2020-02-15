@@ -140,7 +140,7 @@
 			var p = 0.61078 * Math.exp((17.27 * temp)/(temp+237.3));
 			var dpv = ((100-hum)/100) * p * 10;
 			
-			$('#dpv').text(dpv.toString());
+			$('#dpv').text(dpv.toString().slice(0,5));
 			
 		});
 	</script>
