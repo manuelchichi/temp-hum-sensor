@@ -137,6 +137,9 @@
 			var temp = parseFloat($("#temperatureLast").val());
 			var hum = parseFloat($("#humidityLast").val());
 
+			console.log(temp);
+			console.log(hum);
+
 			var p = 0.61078 * Math.exp((17.27 * temp)/(temp+237.3));
 			var dpv = ((100-hum)/100) * p * 10;
 			
