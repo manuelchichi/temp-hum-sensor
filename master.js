@@ -54,8 +54,11 @@ app.get('/lastlecture',function(request,response) {
 })
 
 app.post('/', function(request, response) {
+  var d = new Date();
+  d.setTime( d.getTime() - d.getTimezoneOffset()*60*1000 ); // Lejos de lo ideal. Pero funciona.
+
   const text = 'INSERT INTO lectures(temperature, humidity,time) VALUES($1, $2, $3) RETURNING *'
-  const values = [request.body.temperature, request.body.humidity,new Date()]
+  const values = [request.body.temperature, request.body.humidity,d]
   client.query(text, values, (err, res) => {
     if (err) {
       console.log(err.stack)
