@@ -46,7 +46,7 @@
 			<div class="col-3">
 				<i class="fa fa-thermometer-half" style="font-size: 18px;"></i> 
 				<span id="temperatureLast">XX</span>
-				<sup class="units">°C</sup>
+				<sup class="units">C</sup>
 			</div>
 			<div class="col-3">
 				<i class="fa fa-tint" style="font-size: 18px;"></i> 
@@ -134,8 +134,9 @@
 
 	<script type="text/javascript">
 		$('#dpvButton').click(function() {
-			var temp = parseInt($("#temperatureLast").val());
-			var hum = parseInt($("#humidityLast").val());
+			var temp = parseFloat($("#temperatureLast").val());
+			var hum = parseFloat($("#humidityLast").val());
+
 			var p = 0.61078 * Math.exp((17.27 * temp)/(temp+237.3));
 			var dpv = ((100-hum)/100) * p * 10;
 			
